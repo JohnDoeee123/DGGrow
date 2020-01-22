@@ -2,12 +2,12 @@
 
 namespace App\Controller\API;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use ApiPlatform\Core\Annotation\ApiResource;
 
-class ApiResponseController
+class ApiResponseController extends  AbstractController
 {
     private $params;
 
@@ -23,7 +23,7 @@ class ApiResponseController
      *     methods={"GET"},
      * )
      */
-    public function __invoke(): object
+    public function getPotatoSales(): object
     {
         $rootDir = $this->params->get('kernel.project_dir');
         $responseJson = file_get_contents($rootDir . '/staticres/potato_sales.json');

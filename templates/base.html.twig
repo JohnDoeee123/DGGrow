@@ -20,16 +20,16 @@
                 crossorigin="anonymous"></script>
     {% endblock %}
 
+    <style>{{ source('css/login.css') }}</style>
+    <style>    .navbar-custom {
+            background-color: #ff5500;
+        }</style>
 </head>
 <body>
-
-
 
 
 {% block body %}
     {{ include('fragments/first_page_navigation.html.twig') }}
 {% endblock %}
-{% block javascripts %}{% endblock %}
-
 </body>
 </html>

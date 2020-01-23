@@ -50,14 +50,11 @@ class DummySecurityController extends AbstractController
             $this->session->set('email', $user);
             $this->session->set('fullName', 'Johnny Baloney');
 
-//            die($this->session->get('username'));
-
             return $this->render('dashboard.html.twig', [
                 'pageName' => 'Dashboard',
-                'fullName' => $this->session->get('fullName')
+                'fullName' => $this->session->get('fullName'),
+                'customContentTemplate' => 'fragments/content/login_success.html.twig'
             ]);
-//            return $this->render('dashboard.html.twig', []);
-
 
         } else {
             return $this->render('security/login.html.twig');

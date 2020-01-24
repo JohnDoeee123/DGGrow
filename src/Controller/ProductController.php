@@ -36,19 +36,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('default');
         }
 
-        $product = new Product();
-
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $product = $form->getData();
-
-            return $this->redirectToRoute('productSaveSuccess');
-        }
-
         return $this->render('add_new_product.html.twig', [
-            'form' => $form->createView(),
             'pageName' => 'New Product',
             'fullName' => $this->session->get('fullName')
         ]);
@@ -56,22 +44,23 @@ class ProductController extends AbstractController
 
     /**
      * @Route(
-     *     name="productSaveSuccess",
-     *     path="/productSaveSuccess",
+     *     name="productSalesReport",
+     *     path="/productSalesReport",
      *     methods={"GET"},
      * )
      */
-    public function productSaveSuccess()
+    public function productSalesReport()
     {
+
         //TODO extract to a service
         if (!$this->session->get('username')) {
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('dashboard.html.twig', [
-            'pageName' => 'Save Successful',
-            'fullName' => $this->session->get('fullName'),
-            'customContentTemplate' => 'product/product_save_succes.html.twig'
+        return $this->render('sales_report.html.twig', [
+            'pageName' => 'Sales Report',
+            'fullName' => $this->session->get('fullName')
         ]);
     }
+
 }

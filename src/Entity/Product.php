@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class Product
 {
@@ -27,19 +29,19 @@ class Product
      * )
      */
     protected $productId;
+
     /**
      * @Assert\Length(
-     *      min = 0,
+     *      min = 2,
      *      max = 30,
-     *      maxMessage = "The product id length cannot be longer than {{ limit }} characters"
+     *      minMessage = "The product manager name must be at least {{ limit }} characters long",
+     *      maxMessage = "The product manager name cannot be longer than {{ limit }} characters",
+     *      allowEmptyString = true
      * )
      */
     protected $productManager;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Type("\DateTime")
-     */
+
     protected $salesStartDate;
 
     /**
@@ -90,17 +92,13 @@ class Product
         $this->productManager = $productManager;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getSalesStartDate(): ?\DateTime
+
+    public function getSalesStartDate()
     {
         return $this->salesStartDate;
     }
 
-    /**
-     * @param mixed $salesStartDate
-     */
+
     public function setSalesStartDate($salesStartDate): void
     {
         $this->salesStartDate = $salesStartDate;

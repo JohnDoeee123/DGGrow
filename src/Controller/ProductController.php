@@ -31,9 +31,10 @@ class ProductController extends AbstractController
      */
     public function new(Request $request)
     {
+
         //TODO extract to a service
-        if(!$this->session->get('username') ) {
-           return  $this->redirectToRoute('default');
+        if (!$this->session->get('username')) {
+            return $this->redirectToRoute('default');
         }
 
         $product = new Product();
@@ -41,6 +42,7 @@ class ProductController extends AbstractController
 
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $product = $form->getData();
 
@@ -64,7 +66,7 @@ class ProductController extends AbstractController
     public function productSaveSuccess()
     {
         //TODO extract to a service
-        if(!$this->session->get('username') ) {
+        if (!$this->session->get('username')) {
             return $this->redirectToRoute('login');
         }
 

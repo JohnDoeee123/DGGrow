@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller\API;
+namespace App\API;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProductController extends AbstractController
+class SaleReportsApiController extends AbstractController
 {
     private $params;
 
@@ -19,7 +19,7 @@ class ProductController extends AbstractController
     /**
      * @Route(
      *     name="potato sales",
-     *     path="/api/potatoSales",
+     *     path="/api/sales/potato",
      *     methods={"GET"},
      * )
      */
@@ -29,10 +29,5 @@ class ProductController extends AbstractController
         $responseJson = file_get_contents($rootDir . '/staticres/potato_sales.json');
 
         return new JsonResponse(json_decode($responseJson, true));
-    }
-
-    public function postProduct()
-    {
-
     }
 }

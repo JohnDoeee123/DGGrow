@@ -21,7 +21,6 @@ class ProductController extends AbstractController
         $this->session = $session;
     }
 
-
     /**
      * @Route(
      *     name="newProduct",
@@ -38,7 +37,6 @@ class ProductController extends AbstractController
         }
 
         $product = new Product();
-        $product->setSalesStartDate(new \DateTime('tomorrow'));
 
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);

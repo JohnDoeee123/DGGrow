@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ApiResponseController extends  AbstractController
+class ProductController extends AbstractController
 {
     private $params;
 
@@ -29,5 +29,10 @@ class ApiResponseController extends  AbstractController
         $responseJson = file_get_contents($rootDir . '/staticres/potato_sales.json');
 
         return new JsonResponse(json_decode($responseJson, true));
+    }
+
+    public function postProduct()
+    {
+
     }
 }

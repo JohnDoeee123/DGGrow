@@ -11,7 +11,7 @@ class Product
     /**
      * @Assert\NotBlank
      * @Assert\Length(
-     *      min = 2,
+     *      min = 1,
      *      max = 50,
      *      minMessage = "The product name must be at least {{ limit }} characters long",
      *      maxMessage = "The product name cannot be longer than {{ limit }} characters"
@@ -32,7 +32,7 @@ class Product
 
     /**
      * @Assert\Length(
-     *      min = 2,
+     *      min = 1,
      *      max = 30,
      *      minMessage = "The product manager name must be at least {{ limit }} characters long",
      *      maxMessage = "The product manager name cannot be longer than {{ limit }} characters",
@@ -41,7 +41,14 @@ class Product
      */
     protected $productManager;
 
-
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "The sales start date cannot be longer than {{ limit }} characters",
+     *      allowEmptyString = true
+     * )
+     */
     protected $salesStartDate;
 
     /**
@@ -93,13 +100,18 @@ class Product
     }
 
 
-    public function getSalesStartDate()
+    /**
+     * @return string
+     */
+    public function getSalesStartDate(): ?string
     {
         return $this->salesStartDate;
     }
 
-
-    public function setSalesStartDate($salesStartDate): void
+    /**
+     * @param string|null $salesStartDate
+     */
+    public function setSalesStartDate(?string $salesStartDate): void
     {
         $this->salesStartDate = $salesStartDate;
     }

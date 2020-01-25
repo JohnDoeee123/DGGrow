@@ -6,6 +6,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\DateTime;
 
+//this class is not used as it is not part of the requirements (server side  validation)
 class Product
 {
     /**

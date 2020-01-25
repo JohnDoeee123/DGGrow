@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+//this class is not used as it is not part of the requirements
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

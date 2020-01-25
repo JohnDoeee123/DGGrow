@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}Login!{% endblock %}
 {% block body %}
+    {{ include('fragments/content/wrong_credentials_provided.html.twig') }}
     {{ include('fragments/login_form.html.twig') }}
 {% endblock %}

@@ -57,7 +57,7 @@ class DummySecurityController extends AbstractController
             ]);
 
         } else {
-            return $this->render('security/login.html.twig');
+            return $this->render('security/login.html.twig', ['failedLogin' => 'true']);
         }
     }
 

@@ -1,7 +1,6 @@
-# DGGrow
-# Interview test
+# DGGrow - Interview Test
 
-#Install instructions:
+# Install instructions:
 Clone the repository to a local folder:<br/>
 https://github.com/JohnDoeee123/DGGrow.git<br/>
 cd DGGrow<br/>

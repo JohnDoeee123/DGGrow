@@ -30,7 +30,6 @@ class ProductController extends AbstractController
      */
     public function new(Request $request)
     {
-
         //TODO extract to a service
         if (!$this->session->get('username')) {
             return $this->redirectToRoute('default');
@@ -51,7 +50,6 @@ class ProductController extends AbstractController
      */
     public function productSalesReport()
     {
-
         //TODO extract to a service
         if (!$this->session->get('username')) {
             return $this->redirectToRoute('login');

@@ -71,7 +71,7 @@ class DummySecurityController extends AbstractController
     public function logout()
     {
         $this->session->clear();
-        return $this->render('base.html.twig');
+        return $this->render('logout.html.twig');
     }
 
 }

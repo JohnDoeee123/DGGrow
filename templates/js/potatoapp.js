@@ -15,6 +15,7 @@ function setAddNewProductBehavior() {
 
         makeApiCall('/api/product', formData)
             .done(function (data) {
+                $('#newProduct')[0].reset();
                 showToast("Server Response", data.result);
             });
     });
@@ -60,8 +61,11 @@ function makeApiCall(url, data, method) {
 function generateGrid(data) {
     responseData = data;
 
-    let html = ' <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%"> <thead><tr>' +
-        generateColumnsRecursive(data.column) + ' </tr></thead><tbody>' + generateRows(data) + '</tbody></table>';
+    let html = ' <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%"><thead><tr>' +
+        generateColumnsRecursive(data.column) +
+        '</tr></thead><tbody>' + generateRows(data) +
+        '</tbody></table>';
+
     return html;
 }
 
@@ -71,12 +75,7 @@ function generateColumnsRecursive(columns) {
     columns.forEach(function (element) {
 
         if (element['subHeaders']) {
-            // html += '<th>';
-            // html += element['header'];
-
             html += generateColumnsRecursive(element['subHeaders']);
-            // html += '</th>';
-
         } else {
             html += '<th>';
             html += element.header;
@@ -86,8 +85,6 @@ function generateColumnsRecursive(columns) {
             } else {
                 leaves.push(element.header);
             }
-            // html += '</div>' + populateColumn(element['field']) + '</div>';
-            // html += '</div>' + + '</div>';
         }
     });
 
@@ -96,8 +93,8 @@ function generateColumnsRecursive(columns) {
 }
 
 function generateRows(data) {
-
     let html = '';
+
     data.data.forEach((row) => {
         row['Total sales'] = row.salesQ1 + row.salesQ2 + row.salesQ3 + row.salesQ4;
         html += generateOneRow(row);
@@ -106,7 +103,6 @@ function generateRows(data) {
 }
 
 function generateOneRow(row) {
-    // debugger;
     let html = '<tr>';
     leaves.forEach(el => {
         html += '<td>';

@@ -1,21 +1,5 @@
 {{ include('fragments/info_header.html.twig') }}
-<nav class="navbar navbar-expand-lg navbar-dark bg-light-gray">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('newProduct') }}">
-                    <button class="btn btn-info">New Product</button>
-                </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('productSalesReport') }}">
-                    <button class="btn btn-info">Sales</button>
-                </a>
-            </li>
-        </ul>
-
-    </div>
-</nav>
+{{ include('fragments/logged_in_navigation_header.html.twig') }}
 <container>
     <row>
         <div style="text-align: center">
@@ -25,5 +9,4 @@
             {% endif %}
         </div>
     </row>
-
 </container>

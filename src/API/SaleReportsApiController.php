@@ -18,7 +18,7 @@ class SaleReportsApiController extends AbstractController
 
     /**
      * @Route(
-     *     name="potato sales",
+     *     name="potatoSales",
      *     path="/api/sales/potato",
      *     methods={"GET"},
      * )

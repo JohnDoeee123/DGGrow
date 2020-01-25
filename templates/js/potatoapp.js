@@ -1,4 +1,5 @@
 let responseData;
+let leaves = [];
 
 function setAddNewProductBehavior() {
     //add new product behavior
@@ -33,6 +34,8 @@ function setSalesReportsBehavior() {
             console.log('grid: ', gridHtml);
 
             $('#saleReports').html(gridHtml);
+            $('#myTable').DataTable();
+
         });
 }
 
@@ -57,7 +60,8 @@ function makeApiCall(url, data, method) {
 function generateGrid(data) {
     responseData = data;
 
-    let html = '<div class="row bg-light">' + generateColumnsRecursive(data.column) + '</div>';
+    let html = ' <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%"> <thead><tr>' +
+        generateColumnsRecursive(data.column) + ' </tr></thead><tbody>' + generateRows(data) + '</tbody></table>';
     return html;
 }
 
@@ -67,14 +71,23 @@ function generateColumnsRecursive(columns) {
     columns.forEach(function (element) {
 
         if (element['subHeaders']) {
-            html += '<div class="col border"><div class="row">' + element['header'] + '</div>';
-            html += '<div class="row">';
+            // html += '<th>';
+            // html += element['header'];
+
             html += generateColumnsRecursive(element['subHeaders']);
-            html += '</div></div>';
+            // html += '</th>';
 
         } else {
-            html += generateOneColumn(element);
-            html += '</div>' + populateColumn(element['field']) + '</div>';
+            html += '<th>';
+            html += element.header;
+            html += '</th>';
+            if (element.field) {
+                leaves.push(element.field);
+            } else {
+                leaves.push(element.header);
+            }
+            // html += '</div>' + populateColumn(element['field']) + '</div>';
+            // html += '</div>' + + '</div>';
         }
     });
 
@@ -82,27 +95,30 @@ function generateColumnsRecursive(columns) {
 
 }
 
-function generateOneColumn(columnHeader) {
-    console.log('element', columnHeader);
-    let title = columnHeader['header'];
+function generateRows(data) {
 
-    return '<div class="col border"><div class="row">' + title;
+    let html = '';
+    data.data.forEach((row) => {
+        row['Total sales'] = row.salesQ1 + row.salesQ2 + row.salesQ3 + row.salesQ4;
+        html += generateOneRow(row);
+    });
+    return html;
 }
 
-function populateColumn(columnName) {
+function generateOneRow(row) {
     // debugger;
-    let columnHtml = '';
-    console.log(columnName);
-    if (columnName) {
-        let dataToProcess = responseData.data;
-        let allColumnData = dataToProcess.map(a => a[columnName]);
-        allColumnData.forEach((el) => {
-            columnHtml += '<div class="row">' + el + '</div>';
-        });
-        console.log(columnHtml);
+    let html = '<tr>';
+    leaves.forEach(el => {
+        html += '<td>';
+        html += row[el];
+        html += '</td>';
+    });
 
-    }
-    return columnHtml;
+    html += '</tr>';
+    return html;
 }
+
+
+
 
 

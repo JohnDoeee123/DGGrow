@@ -1,16 +1,14 @@
 # DGGrow
-Interview test
+# Interview test
 
-Install instructions:
+#Install instructions:
+Clone the repository to a local folder:<br/>
+https://github.com/JohnDoeee123/DGGrow.git<br/>
+cd DGGrow<br/>
+Run "composer install"<br/>
 
-Clone the repository to a local folder:
-https://github.com/JohnDoeee123/DGGrow.git
-cd DGGrow
+If the environment is not set up correctly to run symfony 5, you can install a premade docker box:<br/>
+https://github.com/coloso/symfony-docker<br/>
 
-Run "composer install"
-
-If the environment is not set up correctly to run symfony 5, you can install a premade docker box:
-https://github.com/coloso/symfony-docker
-
-After following the instruction  map your symfony root folder to /var/www on the remote machine. You can do this by 
-editing the docker-compose.yml file
+After following the instruction  map your symfony root folder to /var/www on the remote machine. You can do this<br/>
+by editing the docker-compose.yml file

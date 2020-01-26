@@ -61,25 +61,44 @@ function makeApiCall(url, data, method) {
 function generateGrid(data) {
     responseData = data;
 
-    let html = ' <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%"><thead><tr>' +
-        generateColumnsRecursive(data.column) +
-        '</tr></thead><tbody>' + generateRows(data) +
+    let html = '<table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%"><thead>' +
+        generateHeaderRecursive(data.column) +
+        '</thead><tbody>' +
+        generateDataRows(data) +
         '</tbody></table>';
 
     return html;
 }
 
-function generateColumnsRecursive(columns) {
-    let html = '';
+function generateHeaderRecursive(columns) {
+    let result = composeHeaderRecursive(columns);
+    return (result.length == 2) ? `<tr>${result[0]}</tr><tr>${result[1]}</tr>` : `<tr>${result[0]}</tr>`;
+}
+
+function composeHeaderRecursive(columns, isChild) {
+    let htmlParentRow = '';
+    let htmlChildRow = '';
 
     columns.forEach(function (element) {
 
         if (element['subHeaders']) {
-            html += generateColumnsRecursive(element['subHeaders']);
+            htmlParentRow += '<th style="text-align:center;padding-top: 0px" colspan="' + element['subHeaders'].length + '">';
+            htmlParentRow += element.header;
+            htmlParentRow += '</th>';
+
+            htmlChildRow += composeHeaderRecursive(element['subHeaders'], true)[1];
         } else {
-            html += '<th>';
-            html += element.header;
-            html += '</th>';
+            if (isChild) {
+                htmlChildRow += '<th style="border-width: 1px">';
+                htmlChildRow += element.header;
+                htmlChildRow += '</th>';
+
+            } else {
+                htmlParentRow += '<th rowspan="2" style="vertical-align:middle;text-align: center;">';
+                htmlParentRow += element.header;
+                htmlParentRow += '</th>';
+            }
+
             if (element.field) {
                 leaves.push(element.field);
             } else {
@@ -88,11 +107,15 @@ function generateColumnsRecursive(columns) {
         }
     });
 
-    return html;
 
+    console.log('parent', htmlParentRow);
+    console.log('child', htmlChildRow);
+
+    return [htmlParentRow, htmlChildRow];
+//
 }
 
-function generateRows(data) {
+function generateDataRows(data) {
     let html = '';
 
     data.data.forEach((row) => {

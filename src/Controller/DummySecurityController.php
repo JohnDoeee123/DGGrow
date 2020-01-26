@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Service\PotatoHelperService;
 use  Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -11,10 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DummySecurityController extends AbstractController
 {
+    private $potatoHelper;
     private $session;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session, PotatoHelperService $potatoHelper)
     {
+        $this->potatoHelper = $potatoHelper;
         $this->session = $session;
     }
 
@@ -27,7 +30,7 @@ class DummySecurityController extends AbstractController
      */
     public function login()
     {
-        return $this->render('security/login.html.twig', []);
+        return $this->render('security/login.html.twig');
     }
 
 
@@ -50,11 +53,9 @@ class DummySecurityController extends AbstractController
             $this->session->set('email', $user);
             $this->session->set('fullName', 'Johnny Baloney');
 
-            return $this->render('dashboard.html.twig', [
-                'pageName' => 'Dashboard',
-                'fullName' => $this->session->get('fullName'),
-                'customContentTemplate' => 'fragments/content/login_success.html.twig'
-            ]);
+            return $this->render('dashboard.html.twig',
+                array_merge($this->potatoHelper->getCurrentPageInfo(), [
+                    'customContentTemplate' => 'fragments/content/login_success.html.twig']));
 
         } else {
             return $this->render('security/login.html.twig', ['failedLogin' => 'true']);

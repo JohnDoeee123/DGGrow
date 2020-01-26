@@ -2,23 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Form\Type\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\PotatoHelperService;
 
 class ProductController extends AbstractController
 {
-    private $session;
+    private $potatoHelper;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(PotatoHelperService $potatoHelper)
     {
-        $this->session = $session;
+        $this->potatoHelper = $potatoHelper;
     }
 
     /**
@@ -28,16 +22,13 @@ class ProductController extends AbstractController
      *     methods={"GET","POST"},
      * )
      */
-    public function new(Request $request)
+    public function new()
     {
-        if (!$this->session->get('username')) {
+        if (!$this->potatoHelper->loggedInUserExists()) {
             return $this->redirectToRoute('default');
         }
 
-        return $this->render('add_new_product.html.twig', [
-            'pageName' => 'New Product',
-            'fullName' => $this->session->get('fullName')
-        ]);
+        return $this->render('add_new_product.html.twig', $this->potatoHelper->getCurrentPageInfo());
     }
 
     /**
@@ -49,14 +40,11 @@ class ProductController extends AbstractController
      */
     public function productSalesReport()
     {
-        if (!$this->session->get('username')) {
+        if (!$this->potatoHelper->loggedInUserExists()) {
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('sales_report.html.twig', [
-            'pageName' => 'Sales Report',
-            'fullName' => $this->session->get('fullName')
-        ]);
+        return $this->render('sales_report.html.twig', $this->potatoHelper->getCurrentPageInfo());
     }
 
 }

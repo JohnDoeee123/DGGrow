@@ -2,19 +2,18 @@
 
 namespace App\Controller;
 
+use App\Service\PotatoHelperService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 class DefaultController extends AbstractController
 {
-    private $session;
+    private $potatoHelper;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(PotatoHelperService $potatoHelper)
     {
-        $this->session = $session;
+        $this->potatoHelper = $potatoHelper;
     }
 
     /**
@@ -26,13 +25,10 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        //TODO extract to a service
-        if ($this->session->get('username')) {
-            return $this->render('dashboard.html.twig', [
-                'pageName' => 'Dashboard',
-                'fullName' => $this->session->get('fullName'),
-                'customContentTemplate' => 'fragments/content/login_success.html.twig'
-            ]);
+        if ($this->potatoHelper->loggedInUserExists()) {
+            return $this->render('dashboard.html.twig', array_merge($this->potatoHelper->getCurrentPageInfo(),
+                ['customContentTemplate' => 'fragments/content/login_success.html.twig']
+            ));
         }
 
         return $this->render('base.html.twig');

@@ -30,6 +30,9 @@ class DummySecurityController extends AbstractController
      */
     public function login()
     {
+        if ($this->potatoHelper->loggedInUserExists()) {
+            return $this->redirectToRoute('productDashboard');
+        }
         return $this->render('security/login.html.twig');
     }
 
@@ -53,10 +56,7 @@ class DummySecurityController extends AbstractController
             $this->session->set('email', $user);
             $this->session->set('fullName', 'Johnny Baloney');
 
-            return $this->render('dashboard.html.twig',
-                array_merge($this->potatoHelper->getCurrentPageInfo(), [
-                    'customContentTemplate' => 'fragments/content/login_success.html.twig']));
-
+            return $this->redirectToRoute('productDashboard');
         } else {
             return $this->render('security/login.html.twig', ['failedLogin' => 'true']);
         }

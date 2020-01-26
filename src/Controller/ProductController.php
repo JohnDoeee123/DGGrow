@@ -47,4 +47,22 @@ class ProductController extends AbstractController
         return $this->render('sales_report.html.twig', $this->potatoHelper->getCurrentPageInfo());
     }
 
+    /**
+     * @Route(
+     *     name="productDashboard",
+     *     path="/productDashboard",
+     *     methods={"GET"},
+     * )
+     */
+    public function productDashboard()
+    {
+        if (!$this->potatoHelper->loggedInUserExists()) {
+            return $this->redirectToRoute('login');
+        }
+        return $this->render('dashboard.html.twig',
+            array_merge($this->potatoHelper->getCurrentPageInfo(), [
+                'customContentTemplate' => 'fragments/content/login_success.html.twig']));
+    }
+
+
 }

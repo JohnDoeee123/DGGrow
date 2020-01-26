@@ -1,0 +1,56 @@
+body {
+    background-color: ghostwhite;
+}
+
+.parentWithSubHeaders {
+    text-align: center;
+    padding-top: 0 !important;
+    padding-bottom: 1.8em !important;
+}
+
+.childElHeadCell {
+    border-width: 1px !important;
+}
+
+.parentWithoutSubHeaders {
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+.alignCenter {
+    text-align: center
+}
+
+.infoHeader {
+    background-color: #b3d7ff;
+    padding: 5px;
+    border: black 3px !important;
+
+}
+
+.lightBlueBg {
+    background-color: #e8f0ff;
+}
+
+.lightGreyText {
+    color: rgba(107, 109, 111, 0.79)
+}
+
+.loginErrorMsgRed {
+    color: rgba(255, 42, 47, 0.79);
+    padding-left: 5px;
+}
+
+table.table-bordered > tbody > tr > td {
+    border: 1px solid rgb(97, 97, 97) !important;
+}
+
+table.table-bordered > thead > tr > th {
+    border: 1px solid rgb(97, 97, 97) !important;
+    font-size: 1.3em;
+    font-weight: normal;
+    background-color: rgb(231, 230, 230);
+!important;
+    color: rgb(0, 0, 0);
+}
+

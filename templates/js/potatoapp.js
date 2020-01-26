@@ -23,7 +23,6 @@ function setAddNewProductBehavior() {
     $('#resetNewProductForm').click(function () {
         $('#newProduct')[0].reset();
     });
-
 }
 
 function setSalesReportsBehavior() {
@@ -36,7 +35,6 @@ function setSalesReportsBehavior() {
 
             $('#saleReports').html(gridHtml);
             $('#myTable').DataTable();
-
         });
 }
 
@@ -61,7 +59,8 @@ function makeApiCall(url, data, method) {
 function generateGrid(data) {
     responseData = data;
 
-    let html = '<table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%"><thead>' +
+    let html = '<table id="myTable" class="table table-striped table-bordered productTableGrid" cellspacing="0"" width="100%"">' +
+        '<thead>' +
         generateHeaderRecursive(data.column) +
         '</thead><tbody>' +
         generateDataRows(data) +
@@ -82,19 +81,19 @@ function composeHeaderRecursive(columns, isChild) {
     columns.forEach(function (element) {
 
         if (element['subHeaders']) {
-            htmlParentRow += '<th style="text-align:center;padding-top: 0px" colspan="' + element['subHeaders'].length + '">';
+            htmlParentRow += '<th class="parentWithSubHeaders" colspan="' + element['subHeaders'].length + '">';
             htmlParentRow += element.header;
             htmlParentRow += '</th>';
 
             htmlChildRow += composeHeaderRecursive(element['subHeaders'], true)[1];
         } else {
             if (isChild) {
-                htmlChildRow += '<th style="border-width: 1px">';
+                htmlChildRow += '<th class="childElHeadCell">';
                 htmlChildRow += element.header;
                 htmlChildRow += '</th>';
 
             } else {
-                htmlParentRow += '<th rowspan="2" style="vertical-align:middle;text-align: center;">';
+                htmlParentRow += '<th class="parentWithoutSubHeaders" rowspan="2">';
                 htmlParentRow += element.header;
                 htmlParentRow += '</th>';
             }
@@ -107,12 +106,7 @@ function composeHeaderRecursive(columns, isChild) {
         }
     });
 
-
-    console.log('parent', htmlParentRow);
-    console.log('child', htmlChildRow);
-
     return [htmlParentRow, htmlChildRow];
-//
 }
 
 function generateDataRows(data) {
